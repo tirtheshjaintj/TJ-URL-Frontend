@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Modal from 'react-modal';
-
 Modal.setAppElement('#root');
 
 const UrlCard = ({ urlData, baseUrl }) => {
