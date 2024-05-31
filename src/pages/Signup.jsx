@@ -39,14 +39,12 @@ function Signup() {
     });
     toast.success('Logged In Successfully');
     const token=response?.data?.token;
-    console.log(token);
     if(token){
       cookie.set("token",token);
       navigate('/');
     }
   }
   catch(error){
-    console.log(error);
     toast.error(error?.response?.data?.error);
   }
   
