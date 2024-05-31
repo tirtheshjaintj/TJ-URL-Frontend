@@ -34,7 +34,6 @@ function Login() {
     email,
     password
     });
-    console.log(response);
     toast.success('Logged In Successfully');
     const token=response?.data?.token;
     if(token){
@@ -43,7 +42,6 @@ function Login() {
     }
   }
   catch(error){
-    console.error(error);
     toast.error(error.response?.data?.error);
   }};
 
