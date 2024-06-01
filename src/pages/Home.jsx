@@ -85,9 +85,9 @@ function Home() {
     }, [dispatch, navigate, token]);
 
     return (
-        <section className="bg-gray-50 dark:bg-gray-900 min-h-screen pt-20">
+      <section className="bg-gray-50 dark:bg-gray-900 min-h-screen pt-20">
             <Toaster position="bottom-right" />
-            <div className="flex items-center justify-center w-full flex-col text-center">
+           { token &&  <> <div className="flex items-center justify-center w-full flex-col text-center">
                     <>
                         <h2 className="text-white font-bold p-5 text-2xl">Welcome, {user?.name}</h2>
                         <h2 className="text-white font-bold p-1 text-4xl">Let's Make it Short</h2>
@@ -132,7 +132,7 @@ function Home() {
                         </div>
                     )}
                 </div>
-            </div>
+            </div> </>   }
         </section>
     );
 }
