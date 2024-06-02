@@ -37,6 +37,7 @@ function Signup() {
     email,
     password
     });
+    
     toast.success('Logged In Successfully');
     const token=response?.data?.token;
     if(token){
