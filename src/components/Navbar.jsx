@@ -10,8 +10,8 @@ import { removeUser } from '../store/userSlice';
 export default function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // Get user data from Redux state
-  const userData = useSelector(state => state.userData);
+  const cookie = new Cookie();
+  const token=cookie.get('token');
   // Logout function
   const logout = () => {
     const cookie = new Cookie();
@@ -45,7 +45,7 @@ export default function Navbar() {
                 </div>
               </div>
               {/* Logout button */}
-              {userData && (
+              {token && (
                 <div >
                   <button onClick={logout} className="px-4 flex flex-col item py-2 text-sm items-center text-gray-300 hover:bg-gray-700 font-bold"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
 

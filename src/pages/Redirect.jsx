@@ -24,7 +24,7 @@ function Redirect() {
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900 flex flex-col justify-center items-center min-h-screen pt-20">
-            {isLoading ? (
+            
                 <button
                     disabled=""
                     type="button"
@@ -47,11 +47,8 @@ function Redirect() {
                             fill="currentColor"
                         />
                     </svg>
-                    <h1 className="text-4xl dark:text-white font-bold">{msg}</h1>
+                    <h1 className={`text-4xl dark:text-white font-bold ${isLoading ? 'animate-grow' : ''}`}>Redirecting...</h1>
                 </button>
-            ) : (
-                <h1 className="text-4xl dark:text-white font-bold">{msg}</h1>
-            )}
         </section>
     );
 }

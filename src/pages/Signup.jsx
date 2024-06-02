@@ -40,7 +40,7 @@ function Signup() {
     toast.success('Logged In Successfully');
     const token=response?.data?.token;
     if(token){
-      cookie.set("token",token);
+      cookie.set("token", token, { path: '/', expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000) });
       navigate('/');
     }
   }
