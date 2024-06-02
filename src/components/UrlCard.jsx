@@ -29,7 +29,7 @@ const UrlCard = ({ urlData, baseUrl, newUrl }) => {
                 {urlData._id === newUrl?._id && (
                     <span className="absolute top-2 right-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full animate-pulse">New</span>
                 )}
-                <p className=" text-blue-600 hover:underline dark:text-blue-400 font-semibold mb-4">
+                <p className=" text-blue-600 hover:underline dark:text-blue-300 font-bold mb-4">
                     <Link to={`/${urlData.shortId}`} className='break-all' target="_blank" rel="noopener noreferrer">{baseUrl + urlData.shortId}</Link>
                 </p>
                 <p className="mt-2 text-gray-700 dark:text-gray-300 font-bold">
@@ -60,7 +60,7 @@ const UrlCard = ({ urlData, baseUrl, newUrl }) => {
                     {urlData && (
                         <>
                             <h2 className="text-gray-900 dark:text-white font-bold text-2xl mb-4">URL Details</h2>
-                            <p><strong>Short URL:</strong> <Link to={`/${urlData.shortId}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-blue-400">{baseUrl + urlData.shortId}</Link></p>
+                       <p><strong>Short URL:</strong> <span className=" text-blue-600 hover:underline dark:text-blue-300 font-bold mb-4"><Link  to={`/${urlData.shortId}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-blue-400">{baseUrl + urlData.shortId}</Link></span></p>
                             <p className='break-all'><strong>Original URL:</strong> {urlData.redirect}</p>
                             <p><strong>Views:</strong> {urlData.visits.length}</p>
                             <p><strong>Created At:</strong> {new Date(urlData.createdAt).toLocaleString()}</p>
