@@ -25,19 +25,23 @@ function Home() {
     const [filteredUrls, setFilteredUrls] = useState([]);
 
     const handleUrlChange = (e) => {
-        setUrl(e.target.value);
+        const value = e.target.value;
+        const trimmedValue = value.trim(); // Remove leading and trailing spaces
+        if (value === "" || trimmedValue !== "") { // Allow clearing the search box and non-empty values
+            setUrl(e.target.value);
+        }
     };
 
     const handleSearch = (e) => {
         const value = e.target.value;
         const trimmedValue = value.trim(); // Remove leading and trailing spaces
         if (value === "" || trimmedValue !== "") { // Allow clearing the search box and non-empty values
-            setSearchQuery(value);
+            setSearchQuery(value.toLowerCase());
         }
     };
 
     const filterUrls = (query) => {
-        const filtered = generatedUrls.filter(url => url.redirect.includes(query) || url.shortId.includes(query));
+        const filtered = generatedUrls.filter(url => url.redirect.toLowerCase().includes(query) || url.shortId.toLowerCase().includes(query));
         setFilteredUrls(filtered);
     };
 
@@ -125,8 +129,8 @@ function Home() {
                             <h2 className="text-white font-bold p-1 text-4xl">Let's Make it Short</h2>
                         </>
                     </div>
-                    <div className="flex items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
-                        <form onSubmit={handleSubmit} className="w-full flex flex-col max-w-4xl mx-4 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-4">
+                    <div className="flex items-center justify-center bg-gray-100 dark:bg-gray-900 pt-6 pb-6 max-w-screen  rounded-lg shadow-md">
+                        <form onSubmit={handleSubmit} className="w-full max-w-4xl flex flex-col mx-4 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 space-y-4">
                             <div className="relative">
                                 <input
                                     type="url"
@@ -138,12 +142,7 @@ function Home() {
                                     placeholder="Enter URL to shorten"
                                     required
                                 />
-                                <button type="submit" className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M8 11h-.01" />
-                                    </svg>
-                                </button>
+                          
                             </div>
                             <button
                                 type="submit"
@@ -161,6 +160,7 @@ function Home() {
                             </button>
                         </form>
                     </div>
+
                     <div className="flex items-center justify-center mt-6 pb-20">
                         <div className="w-full max-w-6xl bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
                             <div className="flex items-center mb-4">
@@ -171,12 +171,6 @@ function Home() {
                                     placeholder="Search your Generated URLs here"
                                     className="flex-1 w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-primary-600 focus:border-primary-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 />
-                                <button type="submit" className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M8 11h-.01" />
-                                    </svg>
-                                </button>
                             </div>
                             {isLoading ? (
                                 <LoadSkeleton />
@@ -185,8 +179,12 @@ function Home() {
                                     {filteredUrls.map((item, index) => (
                                         <UrlCard key={index} urlData={item} baseUrl={window.location.href} newUrl={newUrl} />
                                     ))}
+                                    
                                 </div>
                             )}
+                            {(filteredUrls.length === 0 && generatedUrls.length!=0) && (
+    <p className="text-center text-gray-500 dark:text-gray-400 break-all">Sorry, no results for "{searchQuery}"</p>
+)}
                         </div>
                     </div>
                 </>
