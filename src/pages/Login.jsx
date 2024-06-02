@@ -12,7 +12,6 @@ function Login() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate=useNavigate();
-  const dipatch=useDispatch();
   const cookie = new Cookie();
   useEffect(()=>{
     let token =cookie.get('token');

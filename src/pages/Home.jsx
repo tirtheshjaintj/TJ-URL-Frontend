@@ -8,8 +8,7 @@ import { url as root } from '../key';
 import toast, { Toaster } from 'react-hot-toast';
 import UrlCard from '../components/UrlCard';
 import LoadSkeleton from '../components/LoadSkeleton';
-import { FaSpinner } from 'react-icons/fa'; // Import the spinner icon
-
+import { FaSpinner } from 'react-icons/fa';
 function Home() {
     const user = useSelector(state => state.userData);
     const navigate = useNavigate();
@@ -21,11 +20,9 @@ function Home() {
     const [newUrl, setNewUrl] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [generating, setGenerating] = useState(false);
-
     const handleUrlChange = (e) => {
         setUrl(e.target.value);
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setGenerating(true);
@@ -35,7 +32,7 @@ function Home() {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            setNewUrl(response.data); // Set the newly generated URL
+            setNewUrl(response.data);
             setGeneratedUrls([response.data, ...generatedUrls]);
             setUrl('');
             toast.success('URL generated Successfully and Copied');
