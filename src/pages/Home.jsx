@@ -85,7 +85,7 @@ function Home() {
                 dispatch(addUser(response.data));
             }
         } catch (error) {
-            toast.error(error.response?.data?.error);
+            // toast.error(error.response?.data?.error);
             navigate('/login');
         } finally {
             setIsLoading(false);
