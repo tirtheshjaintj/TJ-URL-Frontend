@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import EyeToggleSVG from '../components/Eye';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Cookie from "universal-cookie";

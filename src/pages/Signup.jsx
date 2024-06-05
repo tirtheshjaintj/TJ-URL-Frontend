@@ -5,7 +5,6 @@ import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Cookie from "universal-cookie";
 import { url } from '../key';
-
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
