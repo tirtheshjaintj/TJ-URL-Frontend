@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import Cookie from 'universal-cookie';
 import { addUser } from '../store/userSlice';
 import { url as root } from '../key';
@@ -9,7 +9,6 @@ import toast, { Toaster } from 'react-hot-toast';
 import UrlCard from '../components/UrlCard';
 import LoadSkeleton from '../components/LoadSkeleton';
 import { FaSpinner } from 'react-icons/fa';
-
 function Home() {
     const user = useSelector(state => state.userData);
     const navigate = useNavigate();
@@ -23,7 +22,6 @@ function Home() {
     const [generating, setGenerating] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [filteredUrls, setFilteredUrls] = useState([]);
-
     const handleUrlChange = (e) => {
         const value = e.target.value;
         const trimmedValue = value.trim(); // Remove leading and trailing spaces
@@ -31,7 +29,6 @@ function Home() {
             setUrl(e.target.value);
         }
     };
-
     const handleSearch = (e) => {
         const value = e.target.value;
         const trimmedValue = value.trim(); // Remove leading and trailing spaces
@@ -39,12 +36,10 @@ function Home() {
             setSearchQuery(value.toLowerCase());
         }
     };
-
     const filterUrls = (query) => {
         const filtered = generatedUrls.filter(url => url.redirect.toLowerCase().includes(query) || url.shortId.toLowerCase().includes(query));
         setFilteredUrls(filtered);
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setGenerating(true);
@@ -65,7 +60,6 @@ function Home() {
             setGenerating(false);
         }
     };
-
     const fetchData = async () => {
         if (!token) {
             navigate('/login');
@@ -91,7 +85,6 @@ function Home() {
             setIsLoading(false);
         }
     };
-
     const fetchGeneratedUrls = async () => {
         try {
             const response = await axios.get(`${root}/url`, {
