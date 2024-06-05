@@ -58,7 +58,7 @@ function Home() {
             setGeneratedUrls([response.data, ...generatedUrls]);
             setUrl('');
             toast.success('URL generated Successfully and Copied');
-            navigator.clipboard.writeText(window.location.href + response.data.shortId);
+            navigator.clipboard.writeText(window.location.origin+"/"+ response.data.shortId);
         } catch (error) {
             toast.error(error.response?.data?.error);
         } finally {
@@ -177,7 +177,7 @@ function Home() {
                             ) : (
                                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                                     {filteredUrls.map((item, index) => (
-                                        <UrlCard key={index} urlData={item} baseUrl={window.location.href} newUrl={newUrl} />
+                                        <UrlCard key={index} urlData={item} baseUrl={window.location.origin+"/"} newUrl={newUrl} />
                                     ))}
                                     
                                 </div>
