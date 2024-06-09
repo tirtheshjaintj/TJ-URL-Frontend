@@ -4,14 +4,68 @@ import axios from 'axios';
 import { url } from '../key';
 
 function Redirect() {
+    const getBrowserInfo = () => {
+        const ua =  window.navigator.userAgent;
+        return ua.includes("Edg") ? "Microsoft Edge" :
+               ua.includes("Chrome") ? "Google Chrome" :
+               ua.includes("Safari") && !ua.includes("Chrome") ? "Apple Safari" :
+               ua.includes("Firefox") ? "Mozilla Firefox" :
+               ua.includes("Trident/") || ua.includes("MSIE") ? "Microsoft Internet Explorer" :
+               ua.includes("Opera") || ua.includes("OPR") ? "Opera" : "Unknown";
+    };
+    
+    // Get operating system information
+    const getOsInfo = () => {
+        const platform = window.navigator.platform;
+        return platform.includes("Win") ? "Windows" :
+               platform.includes("Mac") ? "MacOS" :
+               platform.includes("Linux") ? "Linux" :
+               platform.includes("iPhone") || platform.includes("iPad") ? "iOS" :
+               platform.includes("Android") ? "Android" : "Unknown";
+    };
+    
+    // Get user language
+    const getUserLanguage = () => {
+        return  window.navigator.language ||  window.navigator.userLanguage;
+    };
+    
+    // Fetch user location data
+    const fetchUserLocation = async () => {
+        try {
+            const { data } = await axios.get('https://ipinfo.io/json');
+            return data;
+        } catch (error) {
+            console.error('Error fetching user location:', error);
+            return null;
+        }
+    };
+    
     const { id } = useParams();
     const [msg, setMsg] = useState('Redirecting...');
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUrl = async () => {
+        const fetchData = async () => {
+            const browser = getBrowserInfo();
+            const os = getOsInfo();
+            const language = getUserLanguage();
             try {
-                const { data } = await axios.post(`${url}/url/${id}`);
+                const userLocation = await fetchUserLocation();
+                const userData = {
+                    platform: os,
+                    os: os,
+                    browser: browser,
+                    ip: userLocation.ip,
+                    country: userLocation.country,
+                    state: userLocation.region,
+                    city: userLocation.city,
+                    coord: userLocation.loc,
+                    provider: userLocation.org,
+                    postal: userLocation.postal,
+                    timezone: userLocation.timezone,
+                    language: language
+                };
+                const { data } = await axios.post(`${url}/url/${id}`, userData);
                 window.location.href = data.redirect;
             } catch (error) {
                 setMsg('Nothing Found');
@@ -19,8 +73,10 @@ function Redirect() {
                 setIsLoading(false);
             }
         };
-        fetchUrl();
+    
+        fetchData();
     }, [id]);
+    
 
     return (
         <section className="bg-gray-50 dark:bg-gray-900 flex flex-col justify-center items-center min-h-screen pt-20">

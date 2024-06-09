@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Cookie from 'universal-cookie';
 import { addUser } from '../store/userSlice';
 import { url as root } from '../key';
@@ -60,31 +60,7 @@ function Home() {
             setGenerating(false);
         }
     };
-    const fetchData = async () => {
-        if (!token) {
-            navigate('/login');
-            return;
-        }
-        const url = `${root}/auth`;
-        try {
-            const response = await axios.get(url, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            if (!response.data || response.data.error) {
-                cookie.remove('token');
-                navigate('/login');
-            } else {
-                dispatch(addUser(response.data));
-            }
-        } catch (error) {
-            // toast.error(error.response?.data?.error);
-            navigate('/login');
-        } finally {
-            setIsLoading(false);
-        }
-    };
+    
     const fetchGeneratedUrls = async () => {
         try {
             const response = await axios.get(`${root}/url`, {
@@ -93,16 +69,17 @@ function Home() {
                 }
             });
             setGeneratedUrls(response.data.reverse());
+            setIsLoading(false);
         } catch (error) {
+            console.log(error);
             toast.error(error.response?.data?.error);
         }
     };
 
     useEffect(() => {
-        if (!token) navigate('/login');
-        fetchData();
         fetchGeneratedUrls();
-    }, []);
+        console.log("Hello");
+    }, [user]);
 
  
     useEffect(() => {
