@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Modal from 'react-modal';
 import { FaClipboard, FaInfoCircle, FaEye } from 'react-icons/fa'; // Import icons for better design
@@ -15,13 +15,6 @@ const UrlCard = ({ urlData, baseUrl, newUrl }) => {
         toast.success(`Copied ${shortUrl}`);
     };
 
-    const openModal = () => {
-        setModalIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-    };
 
     return (
         <Tooltip title={`Redirects to: ${urlData.redirect}`} position="top" trigger="mouseenter">
@@ -42,37 +35,14 @@ const UrlCard = ({ urlData, baseUrl, newUrl }) => {
                     >
                         <FaClipboard className="mr-1" /> Copy
                     </button>
+                    <Link to={`/url/${urlData.shortId}`}>
                     <button
                         className="flex items-center py-1 px-3 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300"
-                        onClick={openModal}
                     >
                         <FaInfoCircle className="mr-1" /> Details
                     </button>
+                    </Link>
                 </div>
-
-                <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="URL Details"
-                    className="bg-white dark:text-white dark:bg-gray-900 rounded-lg shadow-lg p-6 max-w-xl mx-auto mt-20 transition-all duration-300"
-                    overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-                >
-                    {urlData && (
-                        <>
-                            <h2 className="text-gray-900 dark:text-white font-bold text-2xl mb-4">URL Details</h2>
-                       <p><strong>Short URL:</strong> <span className=" text-blue-600 hover:underline dark:text-blue-300 font-bold mb-4"><Link  to={`/${urlData.shortId}`} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline dark:text-blue-400">{baseUrl + urlData.shortId}</Link></span></p>
-                            <p className='break-all'><strong>Original URL:</strong> {urlData.redirect}</p>
-                            <p><strong>Views:</strong> {urlData.visits.length}</p>
-                            <p><strong>Created At:</strong> {new Date(urlData.createdAt).toLocaleString()}</p>
-                            <button
-                                className="mt-4 py-2 px-4 bg-gray-700 text-white font-medium rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-300"
-                                onClick={closeModal}
-                            >
-                                Close
-                            </button>
-                        </>
-                    )}
-                </Modal>
             </div>
         </Tooltip>
     );
