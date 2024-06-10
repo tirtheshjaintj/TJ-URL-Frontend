@@ -33,10 +33,10 @@ function Redirect() {
     const fetchUserLocation = async () => {
         try {
             const { data } = await axios.get('https://ipinfo.io/json');
+            console.log(data);
             return data;
         } catch (error) {
-            console.error('Error fetching user location:', error);
-            return null;
+            return {};
         }
     };
     
@@ -50,24 +50,25 @@ function Redirect() {
             const os = getOsInfo();
             const language = getUserLanguage();
             try {
-                const userLocation = await fetchUserLocation();
+                const userLocation = fetchUserLocation();
                 const userData = {
                     platform: os,
                     os: os,
                     browser: browser,
-                    ip: userLocation.ip,
-                    country: userLocation.country,
-                    state: userLocation.region,
-                    city: userLocation.city,
-                    coord: userLocation.loc,
-                    provider: userLocation.org,
+                    ip: userLocation.ip||"Unknown",
+                    country: userLocation.country||"Unknown",
+                    state: userLocation.region||"Unknown",
+                    city: userLocation.city||"Unknown",
+                    coord: userLocation.loc||"Unknown",
+                    provider: userLocation.org||"Unknown",
                     postal: userLocation.postal,
-                    timezone: userLocation.timezone,
+                    timezone: userLocation.timezone||"Unknown",
                     language: language
                 };
                 const { data } = await axios.post(`${url}/url/${id}`, userData);
                 window.location.href = data.redirect;
             } catch (error) {
+                console.log(error);
                 setMsg('Nothing Found');
             } finally {
                 setIsLoading(false);
