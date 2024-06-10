@@ -172,7 +172,7 @@ function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white pt-14">
+        <div className="min-h-screen bg-gray-900 text-white pt-14 ml-3 mr-3">
             <Toaster />
             <div className="container mx-auto pt-10">
                 {isLoading ? (
@@ -194,7 +194,7 @@ function Dashboard() {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <div className="flex justify-between items-center mb-6">
+                                <div className="flex justify-between items-center mb-6 ">
                                     <h1 className="text-4xl font-bold text-white">{urlData.shortId}</h1>
                                     <button
                                         className="text-gray-400 hover:text-white"
