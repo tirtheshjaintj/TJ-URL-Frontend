@@ -32,7 +32,7 @@ function Redirect() {
     // Fetch user location data
     const fetchUserLocation = async () => {
         try {
-            const { data } = await axios.get('http://ip-api.com/json');
+            const { data } = await axios.get('https://ipapi.co/json/');
             console.log(data);
             return data;
         } catch (error) {
@@ -56,13 +56,13 @@ function Redirect() {
                     platform: os,
                     os: os,
                     browser: browser,
-                    ip: userLocation.query||"Unknown",
+                    ip: userLocation.ip||"Unknown",
                     country: userLocation.country||"Unknown",
-                    state: userLocation.regionName||"Unknown",
+                    state: userLocation.region||"Unknown",
                     city: userLocation.city||"Unknown",
-                    coord: userLocation.lat+","+userLocation.lon||"Unknown",
-                    provider: userLocation.isp||"Unknown",
-                    postal: userLocation.zip,
+                    coord: userLocation.latitude+","+userLocation.longitude||"Unknown",
+                    provider: userLocation.org||"Unknown",
+                    postal: userLocation.postal,
                     timezone: userLocation.timezone||"Unknown",
                     language: language
                 };
