@@ -275,7 +275,7 @@ function Dashboard() {
                                     {urlData.visits.reverse().map((visit) => (
                                         <motion.div
                                             key={visit._id}
-                                            className="bg-gray-800 p-6 rounded-lg shadow-lg transition-transform transform hover:scale-105"
+                                            className="bg-gray-800 p-6 rounded-lg shadow-lg transition-transform transform"
                                             whileHover={{ scale: 1.05 }}
                                             onClick={() => openModal(visit)}
                                         >
