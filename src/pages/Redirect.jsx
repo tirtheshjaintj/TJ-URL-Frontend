@@ -67,7 +67,7 @@ function Redirect() {
                     language: language
                 };
                 const { data } = await axios.post(`${url}/url/${id}`, userData);
-                // window.location.href = data.redirect;
+                window.location.href = data.redirect;
             } catch (error) {
                 console.log(error);
                 setMsg('Nothing Found');
