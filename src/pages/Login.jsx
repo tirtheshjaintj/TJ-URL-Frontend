@@ -7,6 +7,7 @@ import Cookie from "universal-cookie";
 import { url } from '../key';
 
 function Login() {
+  console.log(url);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

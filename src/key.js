@@ -1,1 +1,1 @@
-export const url = import.meta.env.VITE_ROObT_URL;
+export const url = import.meta.env.VITE_ROOT_URL;
