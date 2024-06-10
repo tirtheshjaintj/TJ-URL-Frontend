@@ -244,39 +244,44 @@ function Dashboard() {
                             </motion.div>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by OS</h2>
                                     <Doughnut data={createChartData('os')} />
                                 </div>
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+
+                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by Browser</h2>
                                     <Doughnut data={createChartData('browser')} />
                                 </div>
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+
+                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by Country</h2>
                                     <Doughnut data={createChartData('country')} />
                                 </div>
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+
+                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by State</h2>
                                     <Doughnut data={createChartData('state')} />
                                 </div>
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+
+                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by City</h2>
                                     <Doughnut data={createChartData('city')} />
                                 </div>
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+
+                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by Language</h2>
                                     <Doughnut data={createChartData('language')} />
                                 </div>
+                            
                             </div>
                             <div className='pb-16'>
                                 <h2 className='p-3 text-3xl font-bold text-white flex items-center text-center'>Visit Logs<FaInfoCircle className="ml-2" /></h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {urlData.visits.reverse().map((visit) => (
+                                    {urlData.visits.slice(0).reverse().map((visit) => (
                                         <motion.div
                                             key={visit._id}
-                                            className="bg-gray-800 p-6 rounded-lg shadow-lg transition-transform transform"
-                                            whileHover={{ scale: 1.05 }}
+                                            className="bg-gray-800 p-6 rounded-lg shadow-lg m-2"
                                             onClick={() => openModal(visit)}
                                         >
                                             <p className="text-lg font-semibold mb-2 flex items-center">
@@ -296,7 +301,7 @@ function Dashboard() {
                                     isOpen={modalIsOpen}
                                     onRequestClose={closeModal}
                                     contentLabel="Visit Details"
-                                    className="bg-white dark:text-white dark:bg-gray-900 rounded-lg shadow-lg p-6 max-w-xl mx-auto mt-20 transition-all duration-300"
+                                    className="bg-white ml-5 mr-5 dark:text-white dark:bg-gray-900 rounded-lg shadow-lg p-6 max-w-xl mx-auto mt-20 transition-all duration-300"
                                     overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
                                 >
                                     <h2 className="text-2xl font-semibold mb-4">Visit Details</h2>
