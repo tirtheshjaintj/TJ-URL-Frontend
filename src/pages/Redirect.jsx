@@ -57,7 +57,7 @@ function Redirect() {
                     os: os,
                     browser: browser,
                     ip: userLocation.ip||"Unknown",
-                    country: userLocation.country||"Unknown",
+                    country: userLocation.country_name||"Unknown",
                     state: userLocation.region||"Unknown",
                     city: userLocation.city||"Unknown",
                     coord: userLocation.latitude+","+userLocation.longitude||"Unknown",

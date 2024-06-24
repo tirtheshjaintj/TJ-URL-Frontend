@@ -83,83 +83,88 @@ function Dashboard() {
         }, {});
     };
 
-    const createChartData = (field) => {
-        const aggregatedData = aggregateData(field);
-        return {
-            labels: Object.keys(aggregatedData),
-            datasets: [
-                {
-                    label: `${field.charAt(0).toUpperCase() + field.slice(1)} Distribution`,
-                    data: Object.values(aggregatedData),
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)',
-                        'rgba(255, 159, 64, 0.6)',
-                        'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)',
-                        'rgba(255, 206, 86, 0.6)',
-                        'rgba(75, 192, 192, 0.6)',
-                        'rgba(153, 102, 255, 0.6)',
-                        'rgba(255, 159, 64, 0.6)',
-                    ],
+  const createChartData = (field) => {
+    const aggregatedData = aggregateData(field);
+    return {
+        labels: Object.keys(aggregatedData),
+        datasets: [
+            {
+                label: `${field.charAt(0).toUpperCase() + field.slice(1)} Distribution`,
+                data: Object.values(aggregatedData),
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(153, 102, 255, 0.6)',
+                    'rgba(255, 159, 64, 0.6)',
+                    'rgba(255, 99, 132, 0.8)',   // Dark red
+                    'rgba(54, 162, 235, 0.8)',   // Dark blue
+                    'rgba(255, 206, 86, 0.8)',   // Dark yellow
+                    'rgba(75, 192, 192, 0.8)',   // Dark cyan
+                    'rgba(153, 102, 255, 0.8)',  // Dark purple
+                    'rgba(255, 159, 64, 0.8)',   // Dark orange
+                    'rgba(255, 99, 132, 0.6)',   // Slightly lighter dark red
+                    'rgba(54, 162, 235, 0.6)',   // Slightly lighter dark blue
+                    'rgba(255, 206, 86, 0.6)',   // Slightly lighter dark yellow
+                    'rgba(75, 192, 192, 0.6)',   // Slightly lighter dark cyan
+                    'rgba(153, 102, 255, 0.6)',  // Slightly lighter dark purple
+                    'rgba(255, 159, 64, 0.6)',   // Slightly lighter dark orange
+                    'rgba(128, 128, 128, 0.8)',  // Dark gray
+                    'rgba(100, 149, 237, 0.8)',  // Dark slate blue
+                    'rgba(218, 165, 32, 0.8)',   // Dark goldenrod
+                    'rgba(72, 209, 204, 0.8)',   // Dark cyan
+                ],
+            },
+        ],
+        options: {
+            plugins: {
+                legend: {
+                    display: false, // Hide the legend
                 },
-            ],
-            options: {
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'white', // Set legend text color to white
-                            font: {
-                                size: 14, // Optional: Adjust font size
-                            },
-                        },
-                    },
-                    title: {
-                        display: true,
-                        text: ` ${field.charAt(0).toUpperCase() + field.slice(1)} Distribution`,
-                        color: 'white', // Set title text color to white
-                        font: {
-                            size: 18, // Optional: Adjust font size
-                        },
-                    },
-                    tooltip: {
-                        bodyColor: 'white', // Set tooltip body text color to white
-                        titleColor: 'white', // Set tooltip title text color to white
-                        footerColor: 'white', // Set tooltip footer text color to white
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Optional: Set tooltip background color
-                        borderColor: 'rgba(255, 255, 255, 0.3)', // Optional: Set tooltip border color
-                        borderWidth: 1, // Optional: Set tooltip border width
-                    },
-                },
-                scales: {
-                    x: {
-                        ticks: {
-                            color: 'white', // Set x-axis tick text color to white
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.2)', // Optional: Set x-axis grid line color to be semi-transparent white
-                        },
-                    },
-                    y: {
-                        ticks: {
-                            color: 'white', // Set y-axis tick text color to white
-                        },
-                        grid: {
-                            color: 'rgba(255, 255, 255, 0.2)', // Optional: Set y-axis grid line color to be semi-transparent white
-                        },
-                    },
-                },
-                // Set the default color for all text elements
-                color: 'white',
-                font: {
-                    size: 12, // Optional: Adjust the default font size
+                tooltip: {
+                    bodyColor: 'white',
+                    titleColor: 'white',
+                    footerColor: 'white',
+                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                    borderColor: 'rgba(255, 255, 255, 0.3)',
+                    borderWidth: 1,
                 },
             },
-        };
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'white',
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)',
+                    },
+                },
+                y: {
+                    ticks: {
+                        color: 'white',
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)',
+                    },
+                },
+            },
+            color: 'white',
+            font: {
+                size: 12,
+            },
+        },
     };
+};
+
+    
+    
 
     const openModal = (visit) => {
         setSelectedVisit(visit);
@@ -246,32 +251,66 @@ function Dashboard() {
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
                                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by OS</h2>
-                                    <Doughnut data={createChartData('os')} />
+                                     <Doughnut 
+                                    options={{ plugins: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    }}}
+                                    
+                                    
+                                    data={createChartData('os')} 
+                                    />
                                 </div>
 
                                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by Browser</h2>
-                                    <Doughnut data={createChartData('browser')} />
+                                     <Doughnut 
+                                    options={{ plugins: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    }}}data={createChartData('browser')} />
                                 </div>
 
                                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by Country</h2>
-                                    <Doughnut data={createChartData('country')} />
+                                     <Doughnut 
+                                    options={{ plugins: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    }}}data={createChartData('country')} />
                                 </div>
 
                                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by State</h2>
-                                    <Doughnut data={createChartData('state')} />
+                                     <Doughnut 
+                                    options={{ plugins: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    }}}data={createChartData('state')} />
                                 </div>
 
                                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by City</h2>
-                                    <Doughnut data={createChartData('city')} />
+                                     <Doughnut 
+                                    options={{ plugins: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    }}}data={createChartData('city')} />
                                 </div>
 
                                 <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
                                     <h2 className="text-2xl font-semibold mb-4">Visits by Language</h2>
-                                    <Doughnut data={createChartData('language')} />
+                                     <Doughnut 
+                                    options={{ plugins: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    }}}data={createChartData('language')} />
                                 </div>
                             
                             </div>
