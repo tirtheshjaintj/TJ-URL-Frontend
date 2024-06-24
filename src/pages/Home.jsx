@@ -1,9 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import {useNavigate} from 'react-router-dom';
+import {useSelector } from 'react-redux';
 import Cookie from 'universal-cookie';
-import { addUser } from '../store/userSlice';
 import { url as root } from '../key';
 import toast, { Toaster } from 'react-hot-toast';
 import UrlCard from '../components/UrlCard';
@@ -11,8 +9,6 @@ import LoadSkeleton from '../components/LoadSkeleton';
 import { FaSpinner } from 'react-icons/fa';
 function Home() {
     const user = useSelector(state => state.userData);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
     const cookie = new Cookie();
     const token = cookie.get('token');
     const [url, setUrl] = useState('');
@@ -29,6 +25,7 @@ function Home() {
             setUrl(e.target.value);
         }
     };
+
     const handleSearch = (e) => {
         const value = e.target.value;
         const trimmedValue = value.trim(); // Remove leading and trailing spaces
@@ -36,10 +33,12 @@ function Home() {
             setSearchQuery(value.toLowerCase());
         }
     };
+
     const filterUrls = (query) => {
         const filtered = generatedUrls.filter(url => url.redirect.toLowerCase().includes(query) || url.shortId.toLowerCase().includes(query));
         setFilteredUrls(filtered);
     };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setGenerating(true);
