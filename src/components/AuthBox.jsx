@@ -37,12 +37,14 @@ function AuthBox({children}) {
             navigate('/login');
         }
     };
+    
     useEffect(() => {
         if (!token) navigate('/login');
         if(!user){
         fetchData();
         }
     }, []);
+
 return (
     <>
 {children}
