@@ -1,22 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import EyeToggleSVG from '../components/Eye';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Cookie from "universal-cookie";
 import { url } from '../key';
+import GoogleBox from '../components/GoogleBox';
 
 function Login() {
-  console.log(url);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate=useNavigate();
   const cookie = new Cookie();
   useEffect(()=>{
     let token =cookie.get('token');
     if(token) navigate('/');
   },[]);
+  
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -29,6 +32,7 @@ function Login() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
+      setIsLoading(true);
     const response=await axios.post(`${url}/auth/login`,{
     email,
     password
@@ -42,7 +46,11 @@ function Login() {
   }
   catch(error){
     toast.error(error.response?.data?.error);
-  }};
+  }finally{
+    setIsLoading(false);
+  }
+
+};
 
   return (
 <section className="bg-gray-50 dark:bg-gray-900 min-h-screen pb-8 md:pb-0 overflow-x-auto overflow-y-auto">
@@ -98,10 +106,16 @@ function Login() {
               </div>
               <button
                 type="submit"
+                disabled={isLoading}
                 className="w-full dark:text-white bg-red-600 text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Sign In
+                {!isLoading?"Sign In":
+              <div className="flex items-center justify-center">
+                <div>Signing In</div> <div className="spinner"></div>
+             </div>
+                }
               </button>
+              <GoogleBox setIsLoading={setIsLoading}/>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?{' '}
                 <Link to="/signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">

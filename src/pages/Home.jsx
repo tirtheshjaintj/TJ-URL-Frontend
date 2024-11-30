@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useSelector } from 'react-redux';
 import Cookie from 'universal-cookie';
 import { url as root } from '../key';
@@ -95,7 +95,7 @@ function Home() {
                     <div className="flex items-center justify-center w-full flex-col text-center">
                         <>
                             <h2 className="text-white font-bold p-5 text-2xl">Welcome, {user?.name || "Master"}</h2>
-                            <h2 className="text-white font-bold p-1 text-4xl">Let's Make it Short</h2>
+                            <h2 className="text-white font-bold p-1 text-4xl">Lets Make it Short</h2>
                         </>
                     </div>
                     <div className="flex items-center justify-center bg-gray-100 dark:bg-gray-900 pt-6 pb-6 max-w-screen  rounded-lg shadow-md">

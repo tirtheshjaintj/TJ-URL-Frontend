@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
@@ -11,6 +10,7 @@ import store from './store/store.js'
 import Redirect from './pages/Redirect.jsx'
 import AuthBox from './components/AuthBox.jsx'
 import Dashboard from './pages/Dashboard.jsx'
+import { GoogleOAuthProvider } from "@react-oauth/google"
 
 const router=createBrowserRouter(
   createRoutesFromChildren(
@@ -24,9 +24,11 @@ const router=createBrowserRouter(
   )
 )
 ReactDOM.createRoot(document.getElementById('root')).render(
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
   <Provider store={store}>
     <RouterProvider router={router}>
     <App />
     </RouterProvider>
     </Provider>
+  </GoogleOAuthProvider>
 )

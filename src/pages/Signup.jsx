@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import EyeToggleSVG from '../components/Eye';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import Cookie from "universal-cookie";
 import { url } from '../key';
+import GoogleBox from '../components/GoogleBox';
+
 function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate=useNavigate();
   const cookie = new Cookie();
   useEffect(()=>{
@@ -31,6 +34,7 @@ function Signup() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
+    setIsLoading(true);
     const response=await axios.post(`${url}/auth/signup`,{
     name,
     email,
@@ -46,6 +50,8 @@ function Signup() {
   }
   catch(error){
     toast.error(error?.response?.data?.error);
+  }finally{
+    setIsLoading(false);
   }
   
   };
@@ -120,10 +126,16 @@ function Signup() {
               </div>
               <button
                 type="submit"
+                disabled={isLoading}
                 className="w-full dark:text-white bg-red-600 text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
-                Sign Up
+                {!isLoading?"Sign Up":
+              <div className="flex items-center justify-center">
+                <div>Signing Up</div> <div className="spinner"></div>
+             </div>
+                }
               </button>
+              <GoogleBox setIsLoading={setIsLoading}/>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account ?{' '}
                 <Link to="/login" className="font-medium text-primary-600 hover:underline dark:text-primary-500">
