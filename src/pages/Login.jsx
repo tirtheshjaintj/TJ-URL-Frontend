@@ -32,7 +32,7 @@ function Login() {
   const handleSubmit = async(e) => {
     e.preventDefault();
     try{
-      setIsLoading(true);
+    setIsLoading(true);
     const response=await axios.post(`${url}/auth/login`,{
     email,
     password

@@ -17,10 +17,11 @@ function GoogleBox({ setIsLoading }) {
  
       const { name = "Anonymous", email, sub: google_id } = decodedToken; // Default name
       // console.log(`${url}/user/google_login`);
+      const sanitized_name = name.replace(/[^a-zA-Z\s]/g, "").trim();
       setIsLoading(true); // Set loading state
       const response = await axios.post(`${url}/auth/google_login`, {
         email,
-        name,
+        name:sanitized_name,
         google_id,
       });
 
