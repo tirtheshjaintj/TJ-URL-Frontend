@@ -354,7 +354,7 @@ function Dashboard() {
                                             <div className="space-y-2">
                                                 <p><span className="font-semibold">IP:</span> {visit.ip}</p>
                                                 <p><span className="font-semibold">Location:</span> {visit.city}, {visit.state}, {visit.country}</p>
-                                                <p><span className="font-semibold">Time Ago:</span> {timeAgo(urlData.createdAt)}</p>
+                                                <p><span className="font-semibold">Time Ago:</span> {timeAgo(visit.timestamp)}</p>
                                                 <p><span className="font-semibold">Visited At:</span> {new Date(visit?.timestamp).toLocaleString()}</p>
                                             </div>
                                         </motion.div>
