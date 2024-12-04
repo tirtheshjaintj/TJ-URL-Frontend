@@ -17,7 +17,7 @@ function AuthBox({children}) {
             navigate('/login');
             return;
         }
-        console.log(token);
+        // console.log(token);
         const requrl = `${root}/auth`;
         try {
             const response = await axios.get(requrl, {
@@ -25,7 +25,7 @@ function AuthBox({children}) {
                     'Authorization': `Bearer ${token}`
                 }
             });
-            console.log(response);
+            // console.log(response);
             if (!response.data || response.data.error) {
                 cookie.remove('token');
                 navigate('/login');
@@ -40,10 +40,10 @@ function AuthBox({children}) {
     
     useEffect(() => {
         if (!token) navigate('/login');
-        if(!user){
+        if(!user && token){
         fetchData();
         }
-    }, []);
+    }, [user]);
 
 return (
     <>

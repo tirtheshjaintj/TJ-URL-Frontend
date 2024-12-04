@@ -76,8 +76,10 @@ function Home() {
     };
 
     useEffect(() => {
+        if(user && token){
         fetchGeneratedUrls();
         console.log("Hello");
+        }
     }, [user]);
 
  

@@ -83,6 +83,22 @@ function Dashboard() {
         }, {});
     };
 
+    const timeAgo=(date)=>{
+        const now = new Date();
+        const past = new Date(date);
+        const diff = now - past;
+    
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+    
+        if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
+        if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+        if (minutes > 0) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+        return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
+    }
+
   const createChartData = (field) => {
     const aggregatedData = aggregateData(field);
     return {
@@ -232,6 +248,15 @@ function Dashboard() {
                                         whileHover={{ scale: 1.05 }}
                                     >
                                         <p className="text-xl font-semibold text-white flex items-center">
+                                            <FaCalendarAlt className="mr-2" /> Time Ago:
+                                        </p>
+                                        <p className="text-gray-300">{timeAgo(urlData.createdAt)}</p>
+                                    </motion.div>
+                                    <motion.div
+                                        className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                                        whileHover={{ scale: 1.05 }}
+                                    >
+                                        <p className="text-xl font-semibold text-white flex items-center">
                                             <FaCalendarAlt className="mr-2" /> Created At
                                         </p>
                                         <p className="text-gray-300">{new Date(urlData.createdAt).toLocaleString()}</p>
@@ -329,6 +354,7 @@ function Dashboard() {
                                             <div className="space-y-2">
                                                 <p><span className="font-semibold">IP:</span> {visit.ip}</p>
                                                 <p><span className="font-semibold">Location:</span> {visit.city}, {visit.state}, {visit.country}</p>
+                                                <p><span className="font-semibold">Time Ago:</span> {timeAgo(urlData.createdAt)}</p>
                                                 <p><span className="font-semibold">Visited At:</span> {new Date(visit?.timestamp).toLocaleString()}</p>
                                             </div>
                                         </motion.div>
@@ -348,6 +374,7 @@ function Dashboard() {
                                         <FaTimes className="text-2xl text-gray-500 hover:text-gray-300" />
                                     </button>
                                     <div className="space-y-4">
+                                    <p><span className="font-semibold">Time Ago:</span> {timeAgo(urlData.createdAt)}</p>
                                         <p><span className="font-semibold">OS:</span> {selectedVisit.os}</p>
                                         <p><span className="font-semibold">Browser:</span> {selectedVisit.browser}</p>
                                         <p><span className="font-semibold">IP:</span> {selectedVisit.ip}</p>
