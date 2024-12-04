@@ -248,7 +248,7 @@ function Dashboard() {
                                         whileHover={{ scale: 1.05 }}
                                     >
                                         <p className="text-xl font-semibold text-white flex items-center">
-                                            <FaCalendarAlt className="mr-2" /> Time Ago:
+                                            <FaCalendarAlt className="mr-2" /> Time Ago
                                         </p>
                                         <p className="text-gray-300">{timeAgo(urlData.createdAt)}</p>
                                     </motion.div>
