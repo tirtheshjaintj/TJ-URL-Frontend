@@ -83,104 +83,108 @@ function Dashboard() {
         }, {});
     };
 
-    const timeAgo=(date)=>{
+    const timeAgo = (date) => {
         const now = new Date();
         const past = new Date(date);
         const diff = now - past;
-    
+
         const seconds = Math.floor(diff / 1000);
         const minutes = Math.floor(seconds / 60);
         const hours = Math.floor(minutes / 60);
         const days = Math.floor(hours / 24);
-    
-        if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
-        if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-        if (minutes > 0) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+        const months = Math.floor(days / 30);
+        const years = Math.floor(days / 365);
+
+        if (years > 0) return `${years} year${years > 1 ? "s" : ""} ago`;
+        else if (months > 0) return `${months} month${months > 1 ? "s" : ""} ago`;
+        else if (days > 0) return `${days} day${days > 1 ? "s" : ""} ago`;
+        else if (hours > 0) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+        else if (minutes > 0) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
         return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
     }
 
-  const createChartData = (field) => {
-    const aggregatedData = aggregateData(field);
-    return {
-        labels: Object.keys(aggregatedData),
-        datasets: [
-            {
-                label: `${field.charAt(0).toUpperCase() + field.slice(1)} Distribution`,
-                data: Object.values(aggregatedData),
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
-                    'rgba(255, 99, 132, 0.6)',
-                    'rgba(54, 162, 235, 0.6)',
-                    'rgba(255, 206, 86, 0.6)',
-                    'rgba(75, 192, 192, 0.6)',
-                    'rgba(153, 102, 255, 0.6)',
-                    'rgba(255, 159, 64, 0.6)',
-                    'rgba(255, 99, 132, 0.8)',   // Dark red
-                    'rgba(54, 162, 235, 0.8)',   // Dark blue
-                    'rgba(255, 206, 86, 0.8)',   // Dark yellow
-                    'rgba(75, 192, 192, 0.8)',   // Dark cyan
-                    'rgba(153, 102, 255, 0.8)',  // Dark purple
-                    'rgba(255, 159, 64, 0.8)',   // Dark orange
-                    'rgba(255, 99, 132, 0.6)',   // Slightly lighter dark red
-                    'rgba(54, 162, 235, 0.6)',   // Slightly lighter dark blue
-                    'rgba(255, 206, 86, 0.6)',   // Slightly lighter dark yellow
-                    'rgba(75, 192, 192, 0.6)',   // Slightly lighter dark cyan
-                    'rgba(153, 102, 255, 0.6)',  // Slightly lighter dark purple
-                    'rgba(255, 159, 64, 0.6)',   // Slightly lighter dark orange
-                    'rgba(128, 128, 128, 0.8)',  // Dark gray
-                    'rgba(100, 149, 237, 0.8)',  // Dark slate blue
-                    'rgba(218, 165, 32, 0.8)',   // Dark goldenrod
-                    'rgba(72, 209, 204, 0.8)',   // Dark cyan
-                ],
-            },
-        ],
-        options: {
-            plugins: {
-                legend: {
-                    display: false, // Hide the legend
+    const createChartData = (field) => {
+        const aggregatedData = aggregateData(field);
+        return {
+            labels: Object.keys(aggregatedData),
+            datasets: [
+                {
+                    label: `${field.charAt(0).toUpperCase() + field.slice(1)} Distribution`,
+                    data: Object.values(aggregatedData),
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(255, 99, 132, 0.8)',   // Dark red
+                        'rgba(54, 162, 235, 0.8)',   // Dark blue
+                        'rgba(255, 206, 86, 0.8)',   // Dark yellow
+                        'rgba(75, 192, 192, 0.8)',   // Dark cyan
+                        'rgba(153, 102, 255, 0.8)',  // Dark purple
+                        'rgba(255, 159, 64, 0.8)',   // Dark orange
+                        'rgba(255, 99, 132, 0.6)',   // Slightly lighter dark red
+                        'rgba(54, 162, 235, 0.6)',   // Slightly lighter dark blue
+                        'rgba(255, 206, 86, 0.6)',   // Slightly lighter dark yellow
+                        'rgba(75, 192, 192, 0.6)',   // Slightly lighter dark cyan
+                        'rgba(153, 102, 255, 0.6)',  // Slightly lighter dark purple
+                        'rgba(255, 159, 64, 0.6)',   // Slightly lighter dark orange
+                        'rgba(128, 128, 128, 0.8)',  // Dark gray
+                        'rgba(100, 149, 237, 0.8)',  // Dark slate blue
+                        'rgba(218, 165, 32, 0.8)',   // Dark goldenrod
+                        'rgba(72, 209, 204, 0.8)',   // Dark cyan
+                    ],
                 },
-                tooltip: {
-                    bodyColor: 'white',
-                    titleColor: 'white',
-                    footerColor: 'white',
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                    borderColor: 'rgba(255, 255, 255, 0.3)',
-                    borderWidth: 1,
-                },
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: 'white',
+            ],
+            options: {
+                plugins: {
+                    legend: {
+                        display: false, // Hide the legend
                     },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)',
+                    tooltip: {
+                        bodyColor: 'white',
+                        titleColor: 'white',
+                        footerColor: 'white',
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        borderColor: 'rgba(255, 255, 255, 0.3)',
+                        borderWidth: 1,
                     },
                 },
-                y: {
-                    ticks: {
-                        color: 'white',
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'white',
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)',
+                        },
                     },
-                    grid: {
-                        color: 'rgba(255, 255, 255, 0.2)',
+                    y: {
+                        ticks: {
+                            color: 'white',
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)',
+                        },
                     },
                 },
+                color: 'white',
+                font: {
+                    size: 12,
+                },
             },
-            color: 'white',
-            font: {
-                size: 12,
-            },
-        },
+        };
     };
-};
 
-    
-    
+
+
 
     const openModal = (visit) => {
         setSelectedVisit(visit);
@@ -193,29 +197,29 @@ function Dashboard() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white pt-14 ml-3 mr-3">
+        <div className="min-h-screen ml-3 mr-3 text-white bg-gray-900 pt-14">
             <Toaster />
-            <div className="container mx-auto pt-10">
+            <div className="container pt-10 mx-auto">
                 {isLoading ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+                    <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-3">
                         {Array.from({ length: 6 }).map((_, index) => (
-                            <div key={index} className="bg-gray-800 p-8 rounded-lg shadow-2xl">
+                            <div key={index} className="p-8 bg-gray-800 rounded-lg shadow-2xl">
                                 <Skeleton count={5} />
                             </div>
                         ))}
                     </div>
                 ) : error ? (
-                    <div className="text-center text-xl text-red-500">{error}</div>
+                    <div className="text-xl text-center text-red-500">{error}</div>
                 ) : (
                     urlData && (
                         <div>
                             <motion.div
-                                className="bg-gray-800 p-8 rounded-lg shadow-2xl mb-8"
+                                className="p-8 mb-8 bg-gray-800 rounded-lg shadow-2xl"
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
                             >
-                                <div className="flex justify-between items-center mb-6 ">
+                                <div className="flex items-center justify-between mb-6 ">
                                     <h1 className="text-4xl font-bold text-white">{urlData.shortId}</h1>
                                     <button
                                         className="text-gray-400 hover:text-white"
@@ -224,48 +228,48 @@ function Dashboard() {
                                         <FaCopy className="text-2xl" />
                                     </button>
                                 </div>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                                     <motion.div
-                                        className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                                        className="p-6 transition-transform transform bg-gray-700 rounded-lg shadow-lg hover:shadow-xl hover:scale-105"
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        <p className="text-xl font-semibold text-white flex items-center">
+                                        <p className="flex items-center text-xl font-semibold text-white">
                                             <FaLink className="mr-2" /> Redirect
                                         </p>
-                                        <p className="break-words text-gray-300">{urlData.redirect}</p>
+                                        <p className="text-gray-300 break-words">{urlData.redirect}</p>
                                     </motion.div>
                                     <motion.div
-                                        className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                                        className="p-6 transition-transform transform bg-gray-700 rounded-lg shadow-lg hover:shadow-xl hover:scale-105"
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        <p className="text-xl font-semibold text-white flex items-center">
+                                        <p className="flex items-center text-xl font-semibold text-white">
                                             <FaEye className="mr-2" /> Views
                                         </p>
-                                        <p className="text-3xl font-bold text-white items-center text-center">{urlData.visits.length}</p>
+                                        <p className="items-center text-3xl font-bold text-center text-white">{urlData.visits.length}</p>
                                     </motion.div>
                                     <motion.div
-                                        className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                                        className="p-6 transition-transform transform bg-gray-700 rounded-lg shadow-lg hover:shadow-xl hover:scale-105"
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        <p className="text-xl font-semibold text-white flex items-center">
+                                        <p className="flex items-center text-xl font-semibold text-white">
                                             <FaCalendarAlt className="mr-2" /> Time Ago
                                         </p>
                                         <p className="text-gray-300">{timeAgo(urlData.createdAt)}</p>
                                     </motion.div>
                                     <motion.div
-                                        className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                                        className="p-6 transition-transform transform bg-gray-700 rounded-lg shadow-lg hover:shadow-xl hover:scale-105"
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        <p className="text-xl font-semibold text-white flex items-center">
+                                        <p className="flex items-center text-xl font-semibold text-white">
                                             <FaCalendarAlt className="mr-2" /> Created At
                                         </p>
                                         <p className="text-gray-300">{new Date(urlData.createdAt).toLocaleString()}</p>
                                     </motion.div>
                                     <motion.div
-                                        className="bg-gray-700 p-6 rounded-lg shadow-lg hover:shadow-xl transition-transform transform hover:scale-105"
+                                        className="p-6 transition-transform transform bg-gray-700 rounded-lg shadow-lg hover:shadow-xl hover:scale-105"
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        <p className="text-xl font-semibold text-white flex items-center">
+                                        <p className="flex items-center text-xl font-semibold text-white">
                                             <FaCalendarAlt className="mr-2" /> Last Visited At
                                         </p>
                                         <p className="text-gray-300">{new Date(urlData.updatedAt).toLocaleString()}</p>
@@ -273,82 +277,94 @@ function Dashboard() {
                                 </div>
                             </motion.div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
-                                    <h2 className="text-2xl font-semibold mb-4">Visits by OS</h2>
-                                     <Doughnut 
-                                    options={{ plugins: {
-                                        legend: {
-                                            display: false,
-                                        }
-                                    }}}
-                                    
-                                    
-                                    data={createChartData('os')} 
+                            <div className="grid grid-cols-1 gap-8 mb-8 md:grid-cols-2 lg:grid-cols-3">
+                                <div className="p-6 m-2 bg-gray-800 rounded-lg shadow-lg">
+                                    <h2 className="mb-4 text-2xl font-semibold">Visits by OS</h2>
+                                    <Doughnut
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    display: false,
+                                                }
+                                            }
+                                        }}
+
+
+                                        data={createChartData('os')}
                                     />
                                 </div>
 
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
-                                    <h2 className="text-2xl font-semibold mb-4">Visits by Browser</h2>
-                                     <Doughnut 
-                                    options={{ plugins: {
-                                        legend: {
-                                            display: false,
-                                        }
-                                    }}}data={createChartData('browser')} />
+                                <div className="p-6 m-2 bg-gray-800 rounded-lg shadow-lg">
+                                    <h2 className="mb-4 text-2xl font-semibold">Visits by Browser</h2>
+                                    <Doughnut
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    display: false,
+                                                }
+                                            }
+                                        }} data={createChartData('browser')} />
                                 </div>
 
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
-                                    <h2 className="text-2xl font-semibold mb-4">Visits by Country</h2>
-                                     <Doughnut 
-                                    options={{ plugins: {
-                                        legend: {
-                                            display: false,
-                                        }
-                                    }}}data={createChartData('country')} />
+                                <div className="p-6 m-2 bg-gray-800 rounded-lg shadow-lg">
+                                    <h2 className="mb-4 text-2xl font-semibold">Visits by Country</h2>
+                                    <Doughnut
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    display: false,
+                                                }
+                                            }
+                                        }} data={createChartData('country')} />
                                 </div>
 
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
-                                    <h2 className="text-2xl font-semibold mb-4">Visits by State</h2>
-                                     <Doughnut 
-                                    options={{ plugins: {
-                                        legend: {
-                                            display: false,
-                                        }
-                                    }}}data={createChartData('state')} />
+                                <div className="p-6 m-2 bg-gray-800 rounded-lg shadow-lg">
+                                    <h2 className="mb-4 text-2xl font-semibold">Visits by State</h2>
+                                    <Doughnut
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    display: false,
+                                                }
+                                            }
+                                        }} data={createChartData('state')} />
                                 </div>
 
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
-                                    <h2 className="text-2xl font-semibold mb-4">Visits by City</h2>
-                                     <Doughnut 
-                                    options={{ plugins: {
-                                        legend: {
-                                            display: false,
-                                        }
-                                    }}}data={createChartData('city')} />
+                                <div className="p-6 m-2 bg-gray-800 rounded-lg shadow-lg">
+                                    <h2 className="mb-4 text-2xl font-semibold">Visits by City</h2>
+                                    <Doughnut
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    display: false,
+                                                }
+                                            }
+                                        }} data={createChartData('city')} />
                                 </div>
 
-                                <div className="bg-gray-800 p-6 rounded-lg shadow-lg m-2">
-                                    <h2 className="text-2xl font-semibold mb-4">Visits by Language</h2>
-                                     <Doughnut 
-                                    options={{ plugins: {
-                                        legend: {
-                                            display: false,
-                                        }
-                                    }}}data={createChartData('language')} />
+                                <div className="p-6 m-2 bg-gray-800 rounded-lg shadow-lg">
+                                    <h2 className="mb-4 text-2xl font-semibold">Visits by Language</h2>
+                                    <Doughnut
+                                        options={{
+                                            plugins: {
+                                                legend: {
+                                                    display: false,
+                                                }
+                                            }
+                                        }} data={createChartData('language')} />
                                 </div>
-                            
+
                             </div>
                             <div className='pb-16'>
-                                <h2 className='p-3 text-3xl font-bold text-white flex items-center text-center'>Visit Logs<FaInfoCircle className="ml-2" /></h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {urlData.visits.slice(0).reverse().map((visit) => (
+                                <h2 className='flex items-center p-3 text-3xl font-bold text-center text-white'>Visit Logs<FaInfoCircle className="ml-2" /></h2>
+                                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                                    {urlData.visits.slice().reverse().map((visit) => (
                                         <motion.div
                                             key={visit._id}
-                                            className="bg-gray-800 p-6 rounded-lg shadow-lg m-2"
+                                            className="p-6 m-2 bg-gray-800 rounded-lg shadow-lg"
                                             onClick={() => openModal(visit)}
                                         >
-                                            <p className="text-lg font-semibold mb-2 flex items-center">
+                                            <p className="flex items-center mb-2 text-lg font-semibold">
                                                 Visit Details <FaInfoCircle className="ml-2" />
                                             </p>
                                             <div className="space-y-2">
@@ -362,19 +378,21 @@ function Dashboard() {
                                 </div>
                             </div>
                             {selectedVisit && (
+
                                 <ReactModal
                                     isOpen={modalIsOpen}
                                     onRequestClose={closeModal}
                                     contentLabel="Visit Details"
-                                    className="bg-white ml-5 mr-5 dark:text-white dark:bg-gray-900 rounded-lg shadow-lg p-6 max-w-xl mx-auto mt-20 transition-all duration-300"
+                                    className="max-w-xl p-6 mx-auto mt-20 ml-5 mr-5 transition-all duration-300 bg-white rounded-lg shadow-lg dark:text-white dark:bg-gray-900"
                                     overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
                                 >
-                                    <h2 className="text-2xl font-semibold mb-4">Visit Details</h2>
+                                    {console.log(selectedVisit)}
+                                    <h2 className="mb-4 text-2xl font-semibold">Visit Details</h2>
                                     <button className="absolute top-0 right-0 p-4" onClick={closeModal}>
                                         <FaTimes className="text-2xl text-gray-500 hover:text-gray-300" />
                                     </button>
                                     <div className="space-y-4">
-                                    <p><span className="font-semibold">Time Ago:</span> {timeAgo(urlData.createdAt)}</p>
+                                        <p><span className="font-semibold">Time Ago:</span> {timeAgo(selectedVisit.timestamp)}</p>
                                         <p><span className="font-semibold">OS:</span> {selectedVisit.os}</p>
                                         <p><span className="font-semibold">Browser:</span> {selectedVisit.browser}</p>
                                         <p><span className="font-semibold">IP:</span> {selectedVisit.ip}</p>
